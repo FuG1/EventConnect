@@ -1,0 +1,53 @@
+@use "sass:color";
+@use "../../colors" as colors;
+
+.Header header{
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header__container {
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.Header__logo{
+    color: colors.$primary-color;
+    padding: 0.5em 1em;
+}
+
+.Header__buttons{
+    display: flex;
+    align-items: center;
+    
+}
+
+.Header__button__login{
+    background-color: colors.$primary-color;
+    border: none;
+    margin-right: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    &:hover {
+         background-color: color.scale(colors.$primary-color, $lightness: -10%);
+    }
+}
+.Header__button__signup{
+    margin-right: 1rem;
+    background-color: colors.$secondary-color;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    &:hover {
+         background-color: color.scale(colors.$secondary-color, $lightness: -10%);
+    }
+}
