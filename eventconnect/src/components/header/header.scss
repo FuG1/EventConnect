@@ -1,6 +1,15 @@
 @use "sass:color";
 @use "../../colors" as colors;
 
+.Header a{
+    text-decoration: none;
+}
+
+.Header__logo a {
+    color: inherit;
+}
+
+
 .Header header{
     display: flex;  
     justify-content: space-between;

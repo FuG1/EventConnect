@@ -41,7 +41,7 @@ const RegistrationPage: React.FC = () => {
 
         <p className="registration-footer">
           Уже есть аккаунт?{' '}
-          <a href="#" className="registration-link">
+          <a href="/login" className="registration-link">
             Войти
           </a>
         </p>

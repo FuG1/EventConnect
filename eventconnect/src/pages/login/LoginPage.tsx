@@ -31,13 +31,6 @@ const LoginPage: React.FC = () => {
             Войти
           </button>
         </form>
-
-        <p className="login-footer">
-          Нет аккаунта?{' '}
-          <a href="#" className="login-link">
-            Зарегистрируйтесь
-          </a>
-        </p>
       </div>
     </div>
   );
