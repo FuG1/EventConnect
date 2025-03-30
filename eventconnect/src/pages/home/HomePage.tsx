@@ -8,32 +8,51 @@ interface Event {
     title: string;
     date: string;
     instructions: string;
+    description?: string;
+    adult?: boolean
 }
 
 const HomePage: React.FC = () => {
-  // Состояние для событий, полученных из БД
   const [events, setEvents] = useState<Event[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterAdult, setFilterAdult] = useState(false)
 
   useEffect(() => {
-    // Эмуляция получения данных. Замените на реальный вызов API.
-    const fetchedEvents: Event[] = [
+    const staticEvents: Event[] = [
       {
         id: 1,
-        image: 'https://via.placeholder.com/300',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Emw9u7VlCZBk6slDXWyZJHmLtJBDxMqlcg&s',
         title: 'Событие 1',
         date: '2023-11-10',
-        instructions: 'Регистрация через сайт'
+        instructions: 'Регистрация через сайт',
+        adult: false
       },
       {
         id: 2,
         image: 'https://via.placeholder.com/300',
         title: 'Событие 2',
         date: '2023-12-05',
-        instructions: 'Запишитесь по ссылке'
+        instructions: 'Запишитесь по ссылке',
+        adult: false
+      },
+      {
+        id: 3,
+        image: 'https://via.placeholder.com/300',
+        title: 'Событие 3 (18+)',
+        date: '2023-12-05',
+        instructions: 'Запишитесь по ссылке',
+        adult: true
       }
     ]
-    setEvents(fetchedEvents)
+    const userEvents: Event[] = JSON.parse(localStorage.getItem('userEvents') || '[]')
+    setEvents([...staticEvents, ...userEvents])
   }, [])
+
+  // Фильтрация эвентов по строке поиска и флагу "только для взрослых"
+  const filteredEvents = events.filter(ev => 
+    ev.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (filterAdult ? ev.adult === true : true)
+  )
 
   return (
     <div className="home-page">
@@ -41,9 +60,24 @@ const HomePage: React.FC = () => {
         <section className="home-hero">
           <h1 className="home-title">Добро пожаловать в EventConnect</h1>
           <p className="home-description">
-            Это проект, в котором можно будет размещать свои эвенты и записываться на них.
-            С помощью нашего сайта любой сможет узнавать о интересных событиях и открывать что-то новое.
+            Это проект, где можно просматривать эвенты, создавать свои и применять фильтры для быстрого поиска.
           </p>
+          <div className="event-filters">
+            <input 
+              type="text" 
+              placeholder="Поиск по названию эвента" 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <label>
+              <input 
+                type="checkbox" 
+                checked={filterAdult}
+                onChange={(e) => setFilterAdult(e.target.checked)}
+              />
+              Показать только эвенты 18+
+            </label>
+          </div>
         </section>
         <section className="home-features">
           <div className="home-feature">
@@ -62,7 +96,7 @@ const HomePage: React.FC = () => {
         <section className="event-list">
           <h2 className="event-list-title">Актуальные события</h2>
           <div className="events">
-            {events.map(event => (
+            {filteredEvents.map(event => (
               <Link key={event.id} to={`/event/${event.id}`} style={{ textDecoration: 'none' }}>
                 <div className="event-card">
                   <img src={event.image} alt={event.title} className="event-image" />

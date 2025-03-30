@@ -1,3 +1,4 @@
+/* Страница с подробностями эвента */
 .event-detail-page {
   display: flex;
   justify-content: center;
@@ -8,6 +9,7 @@
   color: #EDF5E1;
 }
 
+/* Карточка детализированного эвента */
 .event-detail-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -16,29 +18,25 @@
   max-width: 600px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
-
 .detail-image {
   width: 100%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
-
 .detail-title {
   font-size: 36px;
   margin-bottom: 1rem;
   color: #8EE4AF;
 }
-
 .detail-date,
 .detail-description,
 .detail-instructions {
   font-size: 18px;
   margin-bottom: 1rem;
 }
-
 .detail-register-button {
   background-color: #5CDB95;
   border: none;
@@ -50,7 +48,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 .detail-register-button:hover {
   background-color: #379683;
 }
