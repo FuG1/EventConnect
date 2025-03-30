@@ -23,11 +23,9 @@ const LoginPage: React.FC = () => {
               className="login-input"
             />
           </div>
-
           <button
             type="submit"
-            className="login-button"
-          >
+            className="login-button">
             Войти
           </button>
         </form>

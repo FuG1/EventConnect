@@ -1,0 +1,108 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom right, #0b0c10, #1f2833);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: #EDF5E1;
+}
+
+.countant{
+    padding-top: 250px;
+}
+
+.home-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.home-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: #8EE4AF;
+  margin-bottom: 1rem;
+}
+
+.home-description {
+  font-size: 20px;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.home-feature {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  flex: 1 1 250px;
+  max-width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.home-feature h2 {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+  color: #8EE4AF;
+}
+
+.home-feature p {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.event-list {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.event-list-title {
+  font-size: 32px;
+  color: #8EE4AF;
+  margin-bottom: 1.5rem;
+}
+
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.event-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 15px;
+  width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.event-title {
+  font-size: 20px;
+  color: #8EE4AF;
+  margin-bottom: 0.5rem;
+}
+
+.event-date,
+.event-instructions {
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+}
