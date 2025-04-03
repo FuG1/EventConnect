@@ -19,30 +19,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const staticEvents: Event[] = [
-      {
-        id: 1,
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Emw9u7VlCZBk6slDXWyZJHmLtJBDxMqlcg&s',
-        title: 'Событие 1',
-        date: '2023-11-10',
-        instructions: 'Регистрация через сайт',
-        adult: false
-      },
-      {
-        id: 2,
-        image: 'https://via.placeholder.com/300',
-        title: 'Событие 2',
-        date: '2023-12-05',
-        instructions: 'Запишитесь по ссылке',
-        adult: false
-      },
-      {
-        id: 3,
-        image: 'https://via.placeholder.com/300',
-        title: 'Событие 3 (18+)',
-        date: '2023-12-05',
-        instructions: 'Запишитесь по ссылке',
-        adult: true
-      }
+
     ]
     const userEvents: Event[] = JSON.parse(localStorage.getItem('userEvents') || '[]')
     setEvents([...staticEvents, ...userEvents])

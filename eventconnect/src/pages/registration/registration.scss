@@ -9,11 +9,11 @@
 .registration-card {
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 40px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .registration-title {
@@ -35,14 +35,20 @@
 }
 
 .registration-input {
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 14px 16px;
+  border-radius: 8px;
   border: none;
   background-color: rgba(255, 255, 255, 0.15);
   color: #EDF5E1;
   font-size: 16px;
   outline: none;
   width: 90%;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.registration-input:focus {
+  border-color: var(--primary-color);
 }
 
 .registration-input::placeholder {

@@ -11,12 +11,12 @@
 .profile-card {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 16px;
+  padding: 40px;
   max-width: 400px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .profile-avatar {
@@ -36,13 +36,20 @@
   margin-bottom: 0.5rem;
 }
 
-.profile-field input {
+.profile-field input,
+.profile-field textarea {
   width: 100%;
-  padding: 8px;
-  border: none;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.15);
   color: #EDF5E1;
+  transition: border-color 0.3s ease;
+}
+
+.profile-field input:focus,
+.profile-field textarea:focus {
+  border-color: var(--primary-color);
 }
 
 .profile-save-button {

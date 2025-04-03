@@ -1,15 +1,22 @@
+:root {
+  --primary-color: #8EE4AF;
+  --secondary-color: #EDF5E1;
+  --bg-color: #0b0c10;
+  --blur-bg: rgba(255,255,255,0.05);
+}
+
 .home-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(to bottom right, #0b0c10, #1f2833);
+  background: linear-gradient(to bottom right, var(--bg-color), #1f2833);
   background-attachment: fixed;
   min-height: 100vh;
-  color: #EDF5E1;
+  color: var(--secondary-color);
 }
 
-.countant{
-    padding-top: 250px;
+.countant {
+  padding-top: 200px;
 }
 
 .home-hero {
@@ -20,7 +27,7 @@
 .home-title {
   font-size: 48px;
   font-weight: bold;
-  color: #8EE4AF;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }
 
@@ -40,7 +47,7 @@
 }
 
 .home-feature {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--blur-bg);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 20px;
@@ -53,7 +60,7 @@
 .home-feature h2 {
   font-size: 24px;
   margin-bottom: 0.5rem;
-  color: #8EE4AF;
+  color: var(--primary-color);
 }
 
 .home-feature p {
@@ -68,7 +75,7 @@
 
 .event-list-title {
   font-size: 32px;
-  color: #8EE4AF;
+  color: var(--primary-color);
   margin-bottom: 1.5rem;
 }
 
@@ -80,12 +87,21 @@
 }
 
 .event-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--blur-bg);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 15px;
   width: 280px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: none; /* убираем обводку */
+  border-bottom: none;
+  color: var(--secondary-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .event-image {
@@ -97,7 +113,7 @@
 
 .event-title {
   font-size: 20px;
-  color: #8EE4AF;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
 }
 
@@ -105,4 +121,38 @@
 .event-instructions {
   font-size: 16px;
   margin-bottom: 0.5rem;
+}
+
+.event-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+
+.event-filters input[type="text"] {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0.1);
+  color: var(--secondary-color);
+  transition: background-color 0.3s ease;
+}
+
+.event-filters input[type="text"]::placeholder {
+  color: var(--secondary-color);
+  opacity: 0.7;
+}
+
+.event-filters input[type="checkbox"] {
+  accent-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.event-filters label {
+  color: var(--secondary-color);
+  font-size: 16px;
 }

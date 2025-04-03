@@ -23,6 +23,8 @@
     left: 0;
     width: 100%;
     z-index: 1000;
+    background-color: rgba(0,0,0,0.8);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .Header__logo{
@@ -34,6 +36,17 @@
     display: flex;
     align-items: center;
     
+}
+
+.Header__buttons button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.Header__buttons button:hover {
+    background-color: rgba(142,228,175,0.8);
 }
 
 .Header__button__login{

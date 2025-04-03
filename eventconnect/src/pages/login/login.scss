@@ -11,11 +11,11 @@
 .login-card {
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 40px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Заголовки и подписи */
@@ -39,16 +39,20 @@
 .login-input {
   padding: 12px 16px;
   border-radius: 10px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.15);
   color: #EDF5E1;
   font-size: 16px;
   outline: none;
   width: 90%;
+  transition: border-color 0.3s ease;
 }
 .login-input::placeholder {
   color: #EDF5E1;
   opacity: 0.7;
+}
+.login-input:focus {
+  border-color: var(--primary-color);
 }
 
 /* Кнопка входа */

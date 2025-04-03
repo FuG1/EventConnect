@@ -2,101 +2,155 @@ import React, { useState, useEffect } from 'react'
 import "./ProfilePage.scss"
 
 const ProfilePage: React.FC = () => {
-  // Профиль пользователя
-  const [username, setUsername] = useState('')
-  const [surname, setSurname] = useState('')
-  const [email, setEmail] = useState('')
-  const [age, setAge] = useState('')
-  const [about, setAbout] = useState('')
-  const [avatar, setAvatar] = useState('https://via.placeholder.com/100')
-
-  // Состояния для создания эвента
-  const [eventTitle, setEventTitle] = useState('')
-  const [eventDate, setEventDate] = useState('')
-  const [eventInstructions, setEventInstructions] = useState('')
-  const [eventDescription, setEventDescription] = useState('')
-  const [eventImage, setEventImage] = useState('https://via.placeholder.com/300')
-  const [eventAdult, setEventAdult] = useState(false)  // новое поле
-
-  // Управление отображением форм
+  // Состояние профиля
+  const [profile, setProfile] = useState({
+    username: '',
+    surname: '',
+    email: '',
+    age: '',
+    about: '',
+    avatar: 'https://via.placeholder.com/100'
+  })
   const [editingProfile, setEditingProfile] = useState(false)
+
+  // Состояния формы создания эвента
+  const [eventForm, setEventForm] = useState({
+    eventTitle: '',
+    eventDate: '',
+    eventInstructions: '',
+    eventDescription: '',
+    eventImage: 'https://via.placeholder.com/300',
+    eventAdult: false
+  })
   const [showEventForm, setShowEventForm] = useState(false)
 
   useEffect(() => {
-    const storedUser = { username: 'Имя', surname: 'Фамилия', email: 'user@example.com', avatar: 'https://via.placeholder.com/100' }
-    setUsername(storedUser.username)
-    setSurname(storedUser.surname)
-    setEmail(storedUser.email)
-    setAvatar(storedUser.avatar)
+    const storedProfile = localStorage.getItem('profile')
+    if (storedProfile) {
+      setProfile(JSON.parse(storedProfile))
+    } else {
+      setProfile({
+        username: 'Имя',
+        surname: 'Фамилия',
+        email: 'user@example.com',
+        age: '',
+        about: '',
+        avatar: 'https://via.placeholder.com/100'
+      })
+    }
   }, [])
 
-  const handleSave = () => {
-    console.log("Сохранение данных:", { username, surname, email, age, about })
+  const handleProfileSave = () => {
+    localStorage.setItem('profile', JSON.stringify(profile))
     alert('Данные профиля сохранены!')
     setEditingProfile(false)
-    // Сохраняем возраст для дальнейшей проверки регистрации на эвенты 18+
-    localStorage.setItem('userAge', age)
+    // Сохраняем возраст для проверки эвентов для взрослых
+    localStorage.setItem('userAge', profile.age)
   }
 
   const handleEventCreate = (e: React.FormEvent) => {
     e.preventDefault()
     const newEvent = {
       id: Date.now(),
-      image: eventImage,
-      title: eventTitle,
-      date: eventDate,
-      instructions: eventInstructions,
-      description: eventDescription,
-      adult: eventAdult  // добавляем отметку "для взрослых"
+      image: eventForm.eventImage,
+      title: eventForm.eventTitle,
+      date: eventForm.eventDate,
+      instructions: eventForm.eventInstructions,
+      description: eventForm.eventDescription,
+      adult: eventForm.eventAdult
     }
     const existingEvents = JSON.parse(localStorage.getItem('userEvents') || '[]')
     existingEvents.push(newEvent)
     localStorage.setItem('userEvents', JSON.stringify(existingEvents))
     alert('Новый эвент создан и опубликован!')
     setShowEventForm(false)
-    setEventTitle('')
-    setEventDate('')
-    setEventInstructions('')
-    setEventDescription('')
-    setEventImage('https://via.placeholder.com/300')
-    setEventAdult(false)
+    setEventForm({
+      eventTitle: '',
+      eventDate: '',
+      eventInstructions: '',
+      eventDescription: '',
+      eventImage: 'https://via.placeholder.com/300',
+      eventAdult: false
+    })
+  }
+
+  // Новая функция для загрузки аватарки
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setProfile({ ...profile, avatar: reader.result as string })
+      }
+      reader.readAsDataURL(file)
+    }
   }
 
   return (
     <div className="profile-page">
       <div className="profile-card">
-        <img src={avatar} alt="avatar" className="profile-avatar" />
-        <h2>{username} {surname}</h2>
-        {!editingProfile && (
-          <button onClick={() => setEditingProfile(true)} className="profile-save-button">
-            Изменить данные
-          </button>
-        )}
-        {editingProfile && (
+        <img src={profile.avatar} alt="avatar" className="profile-avatar" />
+        {!editingProfile ? (
+          <>
+            <div className="profile-info">
+              <p><strong>Имя:</strong> {profile.username}</p>
+              <p><strong>Фамилия:</strong> {profile.surname}</p>
+              <p><strong>Email:</strong> {profile.email}</p>
+              <p><strong>Возраст:</strong> {profile.age}</p>
+              <p><strong>О себе:</strong> {profile.about}</p>
+            </div>
+            <button onClick={() => setEditingProfile(true)} className="profile-save-button">
+              Изменить данные
+            </button>
+          </>
+        ) : (
           <>
             <div className="profile-field">
               <label>Имя:</label>
-              <input value={username} onChange={(e) => setUsername(e.target.value)} />
+              <input
+                value={profile.username}
+                onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+              />
             </div>
             <div className="profile-field">
               <label>Фамилия:</label>
-              <input value={surname} onChange={(e) => setSurname(e.target.value)} />
+              <input
+                value={profile.surname}
+                onChange={(e) => setProfile({ ...profile, surname: e.target.value })}
+              />
             </div>
             <div className="profile-field">
               <label>Email:</label>
-              <input value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input
+                value={profile.email}
+                onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+              />
             </div>
             <div className="profile-field">
               <label>Возраст:</label>
-              <input value={age} onChange={(e) => setAge(e.target.value)} />
+              <input
+                value={profile.age}
+                onChange={(e) => setProfile({ ...profile, age: e.target.value })}
+              />
             </div>
             <div className="profile-field">
               <label>О себе:</label>
-              <textarea value={about} onChange={(e) => setAbout(e.target.value)} />
+              <textarea
+                value={profile.about}
+                onChange={(e) => setProfile({ ...profile, about: e.target.value })}
+              />
             </div>
-            <button onClick={handleSave} className="profile-save-button">Сохранить изменения</button>
+            {/* Новое поле для загрузки аватарки */}
+            <div className="profile-field">
+              <label>Аватар:</label>
+              <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            </div>
+            <button onClick={handleProfileSave} className="profile-save-button">
+              Сохранить изменения
+            </button>
           </>
         )}
+        {/* Кнопка создания эвента остается */}
         {!showEventForm && (
           <button onClick={() => setShowEventForm(true)} className="profile-save-button">
             Создать новый эвент
@@ -106,31 +160,61 @@ const ProfilePage: React.FC = () => {
           <form onSubmit={handleEventCreate} className="event-creation-form">
             <div className="profile-field">
               <label>Название эвента:</label>
-              <input type="text" value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} required />
+              <input
+                type="text"
+                value={eventForm.eventTitle}
+                onChange={(e) => setEventForm({ ...eventForm, eventTitle: e.target.value })}
+                required
+              />
             </div>
             <div className="profile-field">
               <label>Дата эвента:</label>
-              <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} required />
+              <input
+                type="date"
+                value={eventForm.eventDate}
+                onChange={(e) => setEventForm({ ...eventForm, eventDate: e.target.value })}
+                required
+              />
             </div>
             <div className="profile-field">
               <label>Инструкция:</label>
-              <input type="text" value={eventInstructions} onChange={(e) => setEventInstructions(e.target.value)} required />
+              <input
+                type="text"
+                value={eventForm.eventInstructions}
+                onChange={(e) => setEventForm({ ...eventForm, eventInstructions: e.target.value })}
+                required
+              />
             </div>
             <div className="profile-field">
               <label>Описание:</label>
-              <textarea value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} required />
+              <textarea
+                value={eventForm.eventDescription}
+                onChange={(e) => setEventForm({ ...eventForm, eventDescription: e.target.value })}
+                required
+              />
             </div>
             <div className="profile-field">
               <label>URL изображения:</label>
-              <input type="text" value={eventImage} onChange={(e) => setEventImage(e.target.value)} required />
+              <input
+                type="text"
+                value={eventForm.eventImage}
+                onChange={(e) => setEventForm({ ...eventForm, eventImage: e.target.value })}
+                required
+              />
             </div>
             <div className="profile-field">
               <label>
-                <input type="checkbox" checked={eventAdult} onChange={(e) => setEventAdult(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  checked={eventForm.eventAdult}
+                  onChange={(e) => setEventForm({ ...eventForm, eventAdult: e.target.checked })}
+                />
                 Только для взрослых (18+)
               </label>
             </div>
-            <button type="submit" className="profile-save-button">Опубликовать эвент</button>
+            <button type="submit" className="profile-save-button">
+              Опубликовать эвент
+            </button>
           </form>
         )}
       </div>
